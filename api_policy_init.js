@@ -7,8 +7,8 @@ var policy = "urn:unknown";
 
 var this_policy = context.get(Scope.SESSION,"urn:ibm:security:asf:policy","policyID");
 
-if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_init")){
-   policy = "urn:ibm:security:authentication:asf:api_policy_resp";
+if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_presence")){
+   policy = "urn:ibm:security:authentication:asf:api_policy_presence_resp";
 } else if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_otp_finger_init")) {
    policy = "urn:ibm:security:authentication:asf:api_policy_otp_finger_resp";
 } else if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_otp_init")) {
