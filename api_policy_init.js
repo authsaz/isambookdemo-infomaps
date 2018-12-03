@@ -7,16 +7,15 @@ var policy = "urn:unknown";
 
 var this_policy = context.get(Scope.SESSION,"urn:ibm:security:asf:policy","policyID");
 
-if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_presence_init")){
-   policy = "urn:ibm:security:authentication:asf:api_policy_presence_resp";
-} else if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_otp_finger_init")) {
-   policy = "urn:ibm:security:authentication:asf:api_policy_otp_finger_resp";
-} else if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_otp_init")) {
-   policy = "urn:ibm:security:authentication:asf:api_policy_otp_resp";
-} else if (this_policy.equals("urn:ibm:security:authentication:asf:api_policy_presence_finger_init")) {
-   policy = "urn:ibm:security:authentication:asf:api_policy_presence_finger_resp";
-}
+/*
+/* The name of 1st policy should be finish with "_init"  
+/* The name of 2nd policy should be finish with "_resp"
+/*
+*/
 
+if(this_policy.endsWith("_init")){
+   policy = this_policy.substr(0,this_policy.length-5) + "_resp";
+}
 
 var username = context.get(Scope.SESSION,"urn:ibm:security:asf:response:token:attributes","username");
 var param_ref_key = context.get(Scope.REQUEST, "urn:ibm:security:asf:request:parameter","ref_key");
