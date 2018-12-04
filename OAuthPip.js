@@ -136,5 +136,51 @@ function getAttributes (context, requestedAttribute, category) {
         }        
     }    
     
+	
+	if ("urn:ibm:security:iam:oauth:username"
+              .equals(requestedAttribute.getURI())) {    
+                
+        /**
+         * Retrieve the username from the XACML passed from 
+         * WebSEAL to RTSS. You can find a list of additional attributes you 
+         * could use by looking in the pdweb.rtss.
+         * For example - 
+		 * username
+         * access_token
+         * client_type
+         * scope (though already an attribute which is populated from 
+         * urn:ibm:security:subject:oauthScope which is also sent)
+         * urn:oasis:names:tc:xacml:1.0:action:action-id (though already in 
+         * the attribute list as the 'action' which is the HTTP Method)
+         */
+        var oauthUsernameIdentifier = new AttributeIdentifier(
+            "username",
+            Attribute.DataType.STRING,
+            null);
+    
+        var oauthUsername = context.getAttribute(Attribute.Category.SUBJECT, 
+            oauthUsernameIdentifier);   
+        
+        if (oauthUsername != null && oauthUsername.length > 0) { 
+            PluginUtils.trace("oauthscope_pip_rile.getAttributes(): " + 
+            "Found username: " + oauthUsername[0]);
+            
+            var oauthUsernameAttribute = new AttributeIdentifier(
+                "urn:ibm:security:iam:oauth:username",
+                Attribute.DataType.STRING,
+                instanceName);
+        
+            context.addAttribute(oauthUsernameAttribute, [oauthUsername[0]]);
+            
+            PluginUtils.trace("oauthscope_pip_rile.getAttributes(): " + 
+                "adding urn:ibm:security:iam:oauth:username " 
+                     + [oauthUsername[0]]);        
+        
+        }
+        else {
+            PluginUtils.trace("oauthscope_pip_rile.getAttributes(): " 
+                + "No username found!");
+        }        
+    }
     PluginUtils.trace("oauthscope_pip_rile.getAttributes(): exit");
 }
