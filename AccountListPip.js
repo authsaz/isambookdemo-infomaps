@@ -57,6 +57,7 @@ function getAttributes (context, requestedAttribute, category) {
     PluginUtils.trace("---- username: " + username);
             var headers = new com.ibm.security.access.httpclient.Headers();
             headers.addHeader("Accept", "application/json");
+            headers.addHeader("Content-type", "application/json");
             var httpRequestBodyJSON =  '{"username": "' + username + '"}'; 
             var response =com.ibm.security.access.httpclient.HttpClient.httpPost(url, headers, httpRequestBodyJSON, null, null, null, null, null);
              
