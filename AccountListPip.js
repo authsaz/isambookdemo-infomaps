@@ -5,7 +5,7 @@ importPackage(com.tivoli.am.rba.extensions);
 importClass(Packages.com.tivoli.am.rba.attributes.AttributeIdentifier);
 importPackage(com.ibm.security.access.httpclient);
 
-var url = "http://apps.authsaz.com:7001/api/nf/get_account";
+var url = "http://apps.authsaz.com:7001/api/nf/accounts";
 
 function hasAttribute (requestedAttribute, category) {
 
